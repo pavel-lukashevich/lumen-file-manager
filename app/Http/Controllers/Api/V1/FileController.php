@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\UpdateAverageRateJob;
 use App\Models\File;
 use App\Models\Rating;
 use Illuminate\Http\Request;
@@ -121,7 +122,8 @@ class FileController extends Controller
     {
         $user = Auth::user();
         $file = File::findOrFail($id);
-        $rating = Rating::firstOrNew(['user' => $user->id, 'file' => $file->id]);
+        $rating = Rating::firstOrNew(['user_id' => $user->id, 'file_id' => $file->id]);
+
         if (isset($rating->id)) {
             return response()->json('cannot be reevaluated', 403);
         }
@@ -131,6 +133,8 @@ class FileController extends Controller
         ]);
         $rating->rating = $request->post('rating');
         $rating->save();
+
+        dispatch(new UpdateAverageRateJob($file));
 
         return response()->json('successful', 201);
     }
