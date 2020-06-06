@@ -11,8 +11,9 @@
 |
 */
 
-$router->group(['middleware' => 'auth'], function () use ($router) {
-    $router->get('/', function () use ($router) {
-        return $router->app->version();
-    });
-});
+$router->group(
+    ['prefix' => 'api/v1', 'namespace' => 'Api\V1', 'middleware' => 'auth'],
+    function () use ($router) {
+        $router->get('category', ['uses' => 'CategoryController@index']);
+    }
+);
