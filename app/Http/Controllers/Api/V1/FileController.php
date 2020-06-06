@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\File;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -114,6 +115,24 @@ class FileController extends Controller
             return response()->download($fullPath);
         }
         return response()->json("File doesn't exist", 410);
+    }
+
+    public function toRate(int $id, Request $request)
+    {
+        $user = Auth::user();
+        $file = File::findOrFail($id);
+        $rating = Rating::firstOrNew(['user' => $user->id, 'file' => $file->id]);
+        if (isset($rating->id)) {
+            return response()->json('cannot be reevaluated', 403);
+        }
+
+        $this->validate($request, [
+            'rating' => 'required|integer|between:1,10'
+        ]);
+        $rating->rating = $request->post('rating');
+        $rating->save();
+
+        return response()->json('successful', 201);
     }
 
     /**
