@@ -11,9 +11,14 @@
 |
 */
 
-$router->group(
-    ['prefix' => 'api/v1', 'namespace' => 'Api\V1', 'middleware' => 'auth'],
-    function () use ($router) {
-        $router->get('category', ['uses' => 'CategoryController@index']);
-    }
-);
+$router->group(['prefix' => 'api/v1', 'namespace' => 'Api\V1'], function () use ($router) {
+    $router->get('category', ['uses' => 'CategoryController@index']);
+    $router->get('file', ['uses' => 'FileController@index']);
+
+    $router->group(['middleware' => 'auth'], function () use ($router) {
+        $router->post('file', ['uses' => 'FileController@create']);
+        $router->get('file/{id}', ['uses' => 'FileController@show']);
+        $router->get('file/{id}/download', ['uses' => 'FileController@download']);
+        $router->put('file/{id}', ['uses' => 'FileController@update']);
+    });
+});

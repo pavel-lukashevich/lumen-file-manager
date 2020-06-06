@@ -7,11 +7,33 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     /**
-     * The attributes that are mass assignable.
-     *
      * @var array
      */
-    protected $fillable = [
-        'name', 'rating',
-    ];
+    protected $fillable = ['name'];
+
+    /**
+     * @var array
+     */
+    protected $visible = ['name', 'rating', 'file_count'];
+
+    /**
+     * @var array
+     */
+    protected $appends = ['file_count'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(File::class);
+    }
+
+    /**
+     * @return int
+     */
+    public function getFileCountAttribute()
+    {
+        return $this->belongsToMany(File::class)->count();
+    }
 }
