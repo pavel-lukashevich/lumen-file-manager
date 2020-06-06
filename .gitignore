@@ -1,6 +1,11 @@
 /vendor
+
 /.idea
+.phpstorm.meta.php
+_ide_helper.php
+
 Homestead.json
 Homestead.yaml
+
 .env
 .phpunit.result.cache

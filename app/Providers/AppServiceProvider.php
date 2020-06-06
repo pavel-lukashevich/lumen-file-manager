@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,6 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (App::environment() !== 'production') {
+            App::register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+            App::register(\Thedevsaddam\LumenRouteList\LumenRouteListServiceProvider::class);
+        }
     }
 }
