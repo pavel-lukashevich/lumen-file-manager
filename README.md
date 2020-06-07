@@ -59,14 +59,9 @@ php artisan queue:work
 ```
 # get categories 
 curl --location --request GET 'http://lumen.loc/api/v1/categories'
-или
-curl --location --request GET 'http://lumen.loc/api/v1/categories' \
---header 'auth-user-id: 5'
 
-# get files
-curl --location --request GET 'http://lumen.loc/api/v1/files'
-или
-curl --location --request GET 'http://lumen.loc/api/v1/files' \
+# get files from category
+curl --location --request GET 'http://lumen.loc/api/v1/categories/7' \
 --header 'auth-user-id: 5'
 
 # upload file

@@ -8,13 +8,20 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
-        $categories = Category::all();
-        if (Auth::user()) {
-            $categories = $categories->makeVisible(['id']);
-        }
-        return response()->json($categories);
+        return response()->json(Category::all());
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($id)
+    {
+        return response()->json(Category::findOrFail($id)->files()->get());
     }
 }

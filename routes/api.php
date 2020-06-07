@@ -13,7 +13,8 @@
 
 $router->group(['prefix' => 'api/v1', 'namespace' => 'Api\V1'], function () use ($router) {
     $router->get('categories', ['uses' => 'CategoryController@index']);
-    $router->get('files', ['uses' => 'FileController@index']);
+    $router->get('categories/{id}', ['uses' => 'CategoryController@show']);
+//    $router->get('files', ['uses' => 'FileController@index']);
 
     $router->group(['middleware' => 'auth'], function () use ($router) {
         $router->post('files', ['uses' => 'FileController@create']);

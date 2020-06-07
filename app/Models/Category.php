@@ -14,7 +14,7 @@ class Category extends Model
     /**
      * @var array
      */
-    protected $visible = ['name', 'average_rate', 'file_count'];
+    protected $visible = ['id', 'name', 'average_rate', 'file_count'];
 
     /**
      * @var array

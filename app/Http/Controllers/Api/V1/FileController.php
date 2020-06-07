@@ -63,15 +63,6 @@ class FileController extends Controller
 
     /**
      * @param int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show(int $id)
-    {
-        return response()->json(File::findOrFail($id)->makeVisible(['id']));
-    }
-
-    /**
-     * @param int $id
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Validation\ValidationException

@@ -14,7 +14,7 @@ class File extends Model
     /**
      * @var array
      */
-    protected $visible = ['name', 'download_count', 'average_rate'];
+    protected $visible = ['id', 'name', 'download_count', 'average_rate'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
