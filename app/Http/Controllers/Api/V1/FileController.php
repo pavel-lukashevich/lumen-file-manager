@@ -67,7 +67,7 @@ class FileController extends Controller
      */
     public function show(int $id)
     {
-        return response()->json(File::findOrFail($id));
+        return response()->json(File::findOrFail($id)->makeVisible(['id']));
     }
 
     /**
